@@ -128,7 +128,7 @@ def signin(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return redirect("index")
+            return redirect("home")
         else:
             return render(request, 'auth/signin.html', {'message': 'Su correo y/o su contraseña son incorrectas.'})
 
