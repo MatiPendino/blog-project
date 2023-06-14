@@ -24,6 +24,20 @@ def form(request):
     context = {"form":form}
     return render(request,"posts/form_post.html", context)
 
+def edit_post(request, post_id):
+    post = Posts.objects.filter(id=post_id).first()
+    form = PostForm(instance=post)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        
+    context = {
+        "form": form
+    }
+    return render(request, "posts/edit_post.html", context)
+
 def deletepost(request, id):
     post = Posts.objects.get(id=id)
     if request.method == "POST":
